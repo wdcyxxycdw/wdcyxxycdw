@@ -1,7 +1,7 @@
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=go,ts,js,py,ruby,react,nodejs,rails,electron,pytorch,postgres,aws&theme=dark">
-    <img alt="Go, TypeScript, JavaScript, Python, Ruby, React / React Native, Node.js, Rails, Electron, PyTorch, PostgreSQL, AWS" src="https://skillicons.dev/icons?i=go,ts,js,py,ruby,react,nodejs,rails,electron,pytorch,postgres,aws&theme=light" height="44">
+    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=go%2Cts%2Cjs%2Cpy%2Cruby%2Creact%2Cnodejs%2Crails%2Celectron%2Cpytorch%2Cpostgres%2Caws&theme=dark">
+    <img alt="Go, TypeScript, JavaScript, Python, Ruby, React / React Native, Node.js, Rails, Electron, PyTorch, PostgreSQL, AWS" src="https://skillicons.dev/icons?i=go%2Cts%2Cjs%2Cpy%2Cruby%2Creact%2Cnodejs%2Crails%2Celectron%2Cpytorch%2Cpostgres%2Caws&theme=light" height="44">
   </picture>
 </p>
 
