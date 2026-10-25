@@ -1,0 +1,86 @@
+name: Update profile cards
+
+on:
+  schedule:
+    - cron: "17 0 * * *" # daily at 00:17 UTC
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: [".github/workflows/profile-cards.yml"]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: profile-cards
+
+jobs:
+  cards:
+    runs-on: ubuntu-latest
+    env:
+      STATS: username=${{ github.repository_owner }}&show_icons=true&include_all_commits=true
+      LANGS: username=${{ github.repository_owner }}&layout=compact&langs_count=8&hide=perl&size_weight=0.5&count_weight=0.5&card_width=320
+      LIGHT: bg_color=ffffff&title_color=0969da&text_color=1f2328&icon_color=0969da&ring_color=0969da&border_color=d0d7de&border_radius=6
+      DARK: bg_color=0d1117&title_color=4493f8&text_color=e6edf3&icon_color=4493f8&ring_color=4493f8&border_color=30363d&border_radius=6
+    steps:
+      - uses: actions/checkout@v7
+
+      # With a repository secret STATS_TOKEN (classic PAT with repo and read:user), private repos are counted too;
+      # otherwise only public data is used. A failed fetch fails the job, so the last good cards stay in place.
+      - uses: stats-organization/github-readme-stats-action@v2
+        with:
+          card: stats
+          options: ${{ env.STATS }}&${{ env.LIGHT }}
+          path: profile/stats.svg
+          token: ${{ secrets.STATS_TOKEN || secrets.GITHUB_TOKEN }}
+          fail_on_error: true
+      - uses: stats-organization/github-readme-stats-action@v2
+        with:
+          card: stats
+          options: ${{ env.STATS }}&${{ env.DARK }}
+          path: profile/stats-dark.svg
+          token: ${{ secrets.STATS_TOKEN || secrets.GITHUB_TOKEN }}
+          fail_on_error: true
+      - uses: stats-organization/github-readme-stats-action@v2
+        with:
+          card: top-langs
+          options: ${{ env.LANGS }}&${{ env.LIGHT }}
+          path: profile/top-langs.svg
+          token: ${{ secrets.STATS_TOKEN || secrets.GITHUB_TOKEN }}
+          fail_on_error: true
+      - uses: stats-organization/github-readme-stats-action@v2
+        with:
+          card: top-langs
+          options: ${{ env.LANGS }}&${{ env.DARK }}
+          path: profile/top-langs-dark.svg
+          token: ${{ secrets.STATS_TOKEN || secrets.GITHUB_TOKEN }}
+          fail_on_error: true
+
+      # github-profile-trophy has no release tags, so pin a master commit whose own action test passed.
+      - uses: ryo-ma/github-profile-trophy@e3c89df995e92e67cdd4b2acaab9d974583dc1f7
+        with:
+          username: ${{ github.repository_owner }}
+          output_path: profile/trophy.svg
+          token: ${{ secrets.STATS_TOKEN || secrets.GITHUB_TOKEN }}
+          theme: default
+      - uses: ryo-ma/github-profile-trophy@e3c89df995e92e67cdd4b2acaab9d974583dc1f7
+        with:
+          username: ${{ github.repository_owner }}
+          output_path: profile/trophy-dark.svg
+          token: ${{ secrets.STATS_TOKEN || secrets.GITHUB_TOKEN }}
+          theme: darkhub
+
+      - uses: Platane/snk/svg-only@v3
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          outputs: |
+            profile/snake.svg?palette=github-light
+            profile/snake-dark.svg?palette=github-dark
+
+      - name: Commit cards
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add profile/
+          git commit -m "chore: update profile cards" || exit 0
+          git push
