@@ -17,6 +17,11 @@
 </p>
 
 <p align="center">
+  <a href="https://ghfind.com/u/wdcyxxycdw?ref=badge#gh-light-mode-only"><img alt="GitHub Roast score card" src="https://ghfind.com/api/card/mini/wdcyxxycdw?variant=radar&theme=light" width="440"></a>
+  <a href="https://ghfind.com/u/wdcyxxycdw?ref=badge#gh-dark-mode-only"><img alt="GitHub Roast score card" src="https://ghfind.com/api/card/mini/wdcyxxycdw?variant=radar&theme=dark" width="440"></a>
+</p>
+
+<p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/wdcyxxycdw/wdcyxxycdw/main/profile/trophy-dark.svg">
     <img alt="GitHub trophies" src="https://raw.githubusercontent.com/wdcyxxycdw/wdcyxxycdw/main/profile/trophy.svg" width="740">
